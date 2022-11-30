@@ -28,7 +28,7 @@
 /**
  * @file n32g4fr_rcc.h
  * @author Nations
- * @version v1.0.2
+ * @version v1.0.3
  *
  * @copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
  */
@@ -500,8 +500,6 @@ typedef struct
 #define RCC_APB2_PERIPH_GPIOC  ((uint32_t)0x00000010)
 #define RCC_APB2_PERIPH_GPIOD  ((uint32_t)0x00000020)
 #define RCC_APB2_PERIPH_GPIOE  ((uint32_t)0x00000040)
-#define RCC_APB2_PERIPH_GPIOF  ((uint32_t)0x00000080)
-#define RCC_APB2_PERIPH_GPIOG  ((uint32_t)0x00000100)
 #define RCC_APB2_PERIPH_TIM1   ((uint32_t)0x00000800)
 #define RCC_APB2_PERIPH_SPI1   ((uint32_t)0x00001000)
 #define RCC_APB2_PERIPH_TIM8   ((uint32_t)0x00002000)

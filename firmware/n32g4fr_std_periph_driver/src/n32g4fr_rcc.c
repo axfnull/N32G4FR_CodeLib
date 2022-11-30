@@ -225,7 +225,7 @@ void RCC_DeInit(void)
     RCC->CFG2 = 0x00003800;
 
     /* Reset CFG3 register */
-    RCC->CFG3 = 0x00003800;
+    RCC->CFG3 = 0x00003840;
 
     /* Disable all interrupts and clear pending bits  */
     RCC->CLKINT = 0x009F0000;
@@ -977,7 +977,7 @@ void RCC_EnableAHBPeriphClk(uint32_t RCC_AHBPeriph, FunctionalState Cmd)
  *   This parameter can be any combination of the following values:
  *     @arg RCC_APB2_PERIPH_AFIO, RCC_APB2_PERIPH_GPIOA, RCC_APB2_PERIPH_GPIOB,
  *          RCC_APB2_PERIPH_GPIOC, RCC_APB2_PERIPH_GPIOD, RCC_APB2_PERIPH_GPIOE,
- *          RCC_APB2_PERIPH_GPIOF, RCC_APB2_PERIPH_GPIOG, RCC_APB2_PERIPH_TIM1,
+ *          RCC_APB2_PERIPH_TIM1,
  *          RCC_APB2_PERIPH_SPI1, RCC_APB2_PERIPH_TIM8, RCC_APB2_PERIPH_USART1,
  *          RCC_APB2_PERIPH_DVP, RCC_APB2_PERIPH_UART6, RCC_APB2_PERIPH_UART7,
  *          RCC_APB2_PERIPH_I2C3, RCC_APB2_PERIPH_I2C4
@@ -1065,7 +1065,7 @@ void RCC_EnableAHBPeriphReset(uint32_t RCC_AHBPeriph, FunctionalState Cmd)
  *   This parameter can be any combination of the following values:
  *     @arg RCC_APB2_PERIPH_AFIO, RCC_APB2_PERIPH_GPIOA, RCC_APB2_PERIPH_GPIOB,
  *          RCC_APB2_PERIPH_GPIOC, RCC_APB2_PERIPH_GPIOD, RCC_APB2_PERIPH_GPIOE,
- *          RCC_APB2_PERIPH_GPIOF, RCC_APB2_PERIPH_GPIOG, RCC_APB2_PERIPH_TIM1,
+ *          RCC_APB2_PERIPH_TIM1,
  *          RCC_APB2_PERIPH_SPI1, RCC_APB2_PERIPH_TIM8, RCC_APB2_PERIPH_USART1,
  *          RCC_APB2_PERIPH_DVP, RCC_APB2_PERIPH_UART6, RCC_APB2_PERIPH_UART7,
  *          RCC_APB2_PERIPH_I2C3, RCC_APB2_PERIPH_I2C4

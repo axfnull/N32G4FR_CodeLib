@@ -28,7 +28,7 @@
 /**
  * @file main.c
  * @author Nations
- * @version v1.0.0
+ * @version v1.0.1
  *
  * @copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
  */
@@ -80,17 +80,7 @@ void KeyInputExtiInit(GPIO_Module* GPIOx, uint16_t Pin)
     {
         RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_GPIOE, ENABLE);
     }
-    else if (GPIOx == GPIOF)
-    {
-        RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_GPIOF, ENABLE);
-    }
-    else
-    {
-        if (GPIOx == GPIOG)
-        {
-            RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_GPIOG, ENABLE);
-        }
-    }
+
     RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_AFIO, ENABLE);
     /*Configure the GPIO pin as input floating*/
     if (Pin <= GPIO_PIN_ALL)
@@ -149,17 +139,6 @@ void LedInit(GPIO_Module* GPIOx, uint16_t Pin)
     else if (GPIOx == GPIOE)
     {
         RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_GPIOE, ENABLE);
-    }
-    else if (GPIOx == GPIOF)
-    {
-        RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_GPIOF, ENABLE);
-    }
-    else
-    {
-        if (GPIOx == GPIOG)
-        {
-            RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_GPIOG, ENABLE);
-        }
     }
 
     /* Configure the GPIO pin */

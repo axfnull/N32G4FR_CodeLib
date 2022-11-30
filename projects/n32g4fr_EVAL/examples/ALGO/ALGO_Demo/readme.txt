@@ -1,9 +1,9 @@
-1、功能说明
+﻿1、功能说明
     加密算法库API使用示例
 
 2、使用环境
     软件开发环境：KEIL MDK-ARM V5.26
-    硬件环境：基于全功能板N32G457-EVB开发
+    硬件环境：      基于全功能板N32G4XR-STBV1.1开发
 
 3、使用说明
     系统配置：
@@ -15,3 +15,21 @@
                
 4、注意事项
     无
+
+1. Function description
+     Encryption algorithm library API usage example
+
+2. Use environment
+     Software development environment: KEIL MDK-ARM V5.26
+     Development board:                          N32G4XR-STBV1.1
+
+3. Instructions for use
+     System Configuration:
+         1. Debug serial port: PA9--TX(115200)
+
+     Use method:
+         1. After compiling under KEIL, burn it to the EVB, power on
+         2. Output status information through the serial port
+
+4. Matters needing attention
+     None

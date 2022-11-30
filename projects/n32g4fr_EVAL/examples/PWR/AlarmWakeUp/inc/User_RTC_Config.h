@@ -42,8 +42,21 @@
 extern "C" {
 #endif
 
+#define    RTC_ALARM_TEST_TYPE_IRQ        0x01
+#define    RTC_ALARM_TEST_TYPE_OUTPUT     0x02
+#define    RTC_ALARM_TEST_TYPE            RTC_ALARM_TEST_TYPE_IRQ
 
-extern void RTC_CLKSourceConfig(uint8_t ClkSrc, uint8_t FirstLastCfg, uint8_t RstBKP);
+#define    RTC_ALARM_OUT_TYPE_OPEN_DRAIN  0x01
+#define    RTC_ALARM_OUT_TYPE_PULL_PUSH   0x02
+#define    RTC_ALARM_OUT_TYPE             RTC_ALARM_OUT_TYPE_PULL_PUSH
+
+typedef enum {
+    RTC_CLK_SRC_TYPE_HSE128=0x01,
+    RTC_CLK_SRC_TYPE_LSE=0x02,
+    RTC_CLK_SRC_TYPE_LSI=0x03,
+}RTC_CLK_SRC_TYPE;
+
+extern void RTC_CLKSourceConfig(RTC_CLK_SRC_TYPE Clk_Src_Type, bool Is_First_Cfg_RCC, bool Is_Rst_Bkp);
 extern ErrorStatus RTC_TimeRegulate(void);
 extern ErrorStatus RTC_DateRegulate(void);
 extern ErrorStatus RTC_AlarmRegulate(uint32_t RTC_Alarm);

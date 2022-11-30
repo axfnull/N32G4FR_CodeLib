@@ -1,4 +1,4 @@
-1、功能说明
+﻿1、功能说明
 
     /* 简单描述工程功能 */
         这个例程配置并演示CAN1在环回测试模式下收发CAN报文情况
@@ -23,3 +23,30 @@
 
 
 4、注意事项
+
+1. Function description
+
+     /* Briefly describe the engineering function */
+         This example configures and demonstrates CAN1 sending and receiving CAN messages in loopback test mode
+
+
+2. Use environment
+
+     /* Hardware environment: the development hardware platform corresponding to the project */
+         Development board: N32G4XR-STBV1.1
+	 MCU:    N32G4FRREL7
+
+3. Instructions for use
+    
+     /* Describe the configuration method of related modules; for example: clock, I/O, etc. */
+         SystemClock: 144MHz
+         USART: TX-PA9, RX-PA10, baud rate 115200
+         CAN1: RX-PD0, TX-PD1, baud rate 500K, loopback test mode
+
+     /* Describe the test steps and phenomena of Demo */
+         1. After compiling, download the program to reset and run;
+         2. View the serial port print information, CAN1 treats the sent message as a received message and saves it. 
+            When the print information is viewed as the received message, the program runs normally;
+
+
+4. Matters needing attention

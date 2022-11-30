@@ -271,8 +271,8 @@ void QspiFlashChipErase(void)
 ================================================================================*/
 void QSPI_Test(void)
 {
-    uint32_t        i, temp;
-    uint32_t        buf[4];
+    unsigned int   i, temp;
+    unsigned int   buf[4];
     static uint8_t  add;
     
     while(1)
@@ -290,7 +290,7 @@ void QSPI_Test(void)
         QspiFlashErase(0x20, TEST_ADDR);                
     
         /**---------- QSPI read and test ----------*/
-        for(i=0; i<256; i++)    QSPI_RxBuf[i] = 0;      
+        for(i=0; i<256; i++)    QSPI_RxBuf[i] = 0;
         QspiFlashRead(TEST_ADDR, QSPI_RxBuf, 256);
         for(i=0; i<256; i++)
         {

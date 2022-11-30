@@ -98,15 +98,10 @@ void QspiInitConfig(QSPI_InitType* QSPI_InitStruct)
     assert_param(IS_QSPI_SDCN(QSPI_InitStruct->SDCN));
 
     assert_param(IS_QSPI_ENH_CLK_STRETCH_EN(QSPI_InitStruct->ENHANCED_CLK_STRETCH_EN));
-    assert_param(IS_QSPI_ENH_XIP_MBL(QSPI_InitStruct->ENHANCED_XIP_MBL));
-    assert_param(IS_QSPI_ENH_XIP_CT_EN(QSPI_InitStruct->ENHANCED_XIP_CT_EN));
-    assert_param(IS_QSPI_ENH_XIP_INST_EN(QSPI_InitStruct->ENHANCED_XIP_INST_EN));
-    assert_param(IS_QSPI_ENH_XIP_DFS_HC(QSPI_InitStruct->ENHANCED_XIP_DFS_HC));
     assert_param(IS_QSPI_ENH_INST_DDR_EN(QSPI_InitStruct->ENHANCED_INST_DDR_EN));
     assert_param(IS_QSPI_ENH_SPI_DDR_EN(QSPI_InitStruct->ENHANCED_SPI_DDR_EN));
     assert_param(IS_QSPI_ENH_WAIT_CYCLES(QSPI_InitStruct->ENHANCED_WAIT_CYCLES));
     assert_param(IS_QSPI_ENH_INST_L(QSPI_InitStruct->ENHANCED_INST_L));
-    assert_param(IS_QSPI_ENH_MD_BIT_EN(QSPI_InitStruct->ENHANCED_MD_BIT_EN));
     assert_param(IS_QSPI_ENH_ADDR_LEN(QSPI_InitStruct->ENHANCED_ADDR_LEN));
     assert_param(IS_QSPI_ENH_TRANS_TYPE(QSPI_InitStruct->ENHANCED_TRANS_TYPE));
 
@@ -165,10 +160,9 @@ void QspiInitConfig(QSPI_InitType* QSPI_InitStruct)
         QSPI->RS_DELAY  = tmpregister;
             
         tmpregister = 0;
-        tmpregister = (uint32_t)(QSPI_InitStruct->ENHANCED_CLK_STRETCH_EN | QSPI_InitStruct->ENHANCED_XIP_MBL | QSPI_InitStruct->ENHANCED_XIP_CT_EN 
-                                                                | QSPI_InitStruct->ENHANCED_XIP_INST_EN | QSPI_InitStruct->ENHANCED_XIP_DFS_HC | QSPI_InitStruct->ENHANCED_INST_DDR_EN
-                                                                | QSPI_InitStruct->ENHANCED_SPI_DDR_EN | QSPI_InitStruct->ENHANCED_WAIT_CYCLES | QSPI_InitStruct->ENHANCED_INST_L
-                                                                | QSPI_InitStruct->ENHANCED_MD_BIT_EN | QSPI_InitStruct->ENHANCED_ADDR_LEN | QSPI_InitStruct->ENHANCED_TRANS_TYPE);
+        tmpregister = (uint32_t)(QSPI_InitStruct->ENHANCED_CLK_STRETCH_EN | QSPI_InitStruct->ENHANCED_INST_DDR_EN
+                                 | QSPI_InitStruct->ENHANCED_SPI_DDR_EN | QSPI_InitStruct->ENHANCED_WAIT_CYCLES | QSPI_InitStruct->ENHANCED_INST_L
+                                 | QSPI_InitStruct->ENHANCED_ADDR_LEN | QSPI_InitStruct->ENHANCED_TRANS_TYPE);
         QSPI->ENH_CTRL0 = tmpregister;
             
         tmpregister = 0;
@@ -188,7 +182,7 @@ void QspiInitConfig(QSPI_InitType* QSPI_InitStruct)
     QSPI->RXFT  = QSPI_InitStruct->RXFT;
     QSPI->TXFN  = QSPI_InitStruct->TXFN;
     QSPI->RXFN  = QSPI_InitStruct->RXFN;
-    QSPI->DDR_TXDE  = QSPI_InitStruct->TXDE;        
+    QSPI->DDR_TXDE  = QSPI_InitStruct->TXDE;
 }
 /**
  * @brief  Configure single GPIO port as GPIO_Mode_AF_PP.
@@ -209,7 +203,6 @@ static void QSPI_SingleGpioConfig(GPIO_Module* GPIOx, uint16_t Pin)
   * @param qspi_nss_port_sel select the pin of NSS.
                         QSPI_NSS_PORTA_SEL:QSPI remap by PA4~PA7 and PC4~PC5.
                         QSPI_NSS_PORTC_SEL:QSPI remap by PC10~PC12 and PD0~PD2.
-                        QSPI_NSS_PORTF_SEL:QSPI remap by PF0~PF5.
   * @param IO1_Input IO1 Configure as input or not.
   * @param IO3_Output IO3 Configure as output or not.
   */
@@ -291,70 +284,51 @@ void QSPI_GPIO(QSPI_NSS_PORT_SEL qspi_nss_port_sel, bool IO1_Input, bool IO3_Out
             QSPI_SingleGpioConfig(GPIOD, GPIO_PIN_2); // IO3
         }
         break;
-    case QSPI_NSS_PORTF_SEL:
-        RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_GPIOF | RCC_APB2_PERIPH_AFIO, ENABLE);
-        RCC_EnableAHBPeriphClk(RCC_AHB_PERIPH_QSPI, ENABLE);
-        GPIO_ConfigPinRemap(GPIO_RMP1_QSPI, ENABLE);
-
-        QSPI_SingleGpioConfig(GPIOF, GPIO_PIN_0); // NSS
-        QSPI_SingleGpioConfig(GPIOF, GPIO_PIN_1); // SCK
-        QSPI_SingleGpioConfig(GPIOF, GPIO_PIN_2); // IO0
-        if (IO1_Input)
-        {
-            GPIO_InitStructure.Pin        = GPIO_PIN_3; // IO1
-            GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;
-            GPIO_InitStructure.GPIO_Speed = GPIO_INPUT;
-            GPIO_InitPeripheral(GPIOF, &GPIO_InitStructure);
-        }
-        else
-        {
-            QSPI_SingleGpioConfig(GPIOF, GPIO_PIN_3); // IO1
-        }
-        
-        if (IO3_Output)
-        {
-            GPIO_InitStructure.Pin        = GPIO_PIN_4 | GPIO_PIN_5; // IO2 and IO3
-            GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_Out_PP;
-            GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-            GPIO_InitPeripheral(GPIOF, &GPIO_InitStructure);
-                      
-            GPIOF->PBSC |= GPIO_PIN_4 | GPIO_PIN_5;
-        }
-        else
-        {
-            QSPI_SingleGpioConfig(GPIOF, GPIO_PIN_4); // IO2
-            QSPI_SingleGpioConfig(GPIOF, GPIO_PIN_5); // IO3
-        }
-        break;
     default:
         break;
     }
 }
+
 /**
   * @brief Configuration of QSPI DMA.
   * @param TxRx transmit or receive data.
                QSPI_DMA_CTRL_TX_DMA_EN:transmit data
-               QSPI_DMA_CTRL_RX_DMA_EN:receive data
   * @param TxDataLevel dma transmit data level.
-  * @param RxDataLevel dma receive data level.
   */
-void QSPI_DMA_CTRL_Config(uint8_t TxRx,uint8_t TxDataLevel,uint8_t RxDataLevel)
+void QSPI_Tx_DMA_CTRL_Config(uint8_t Cmd,uint8_t TxDataLevel)
 {
-    assert_param(IS_QSPI_DMA_CTRL(TxRx));
+    assert_param(IS_FUNCTIONAL_STATE(Cmd));
     assert_param(IS_QSPI_DMATDL_CTRL(TxDataLevel));
-    assert_param(IS_QSPI_DMARDL_CTRL(RxDataLevel));
-
-    QSPI->DMA_CTRL  = 0x00;
-    
-    if (TxRx & QSPI_DMA_CTRL_TX_DMA_EN)
+    if (Cmd)
     {
         QSPI->DMATDL_CTRL = TxDataLevel;  
         QSPI->DMA_CTRL   |= QSPI_DMA_CTRL_TX_DMA_EN; 
     }
-    if (TxRx & QSPI_DMA_CTRL_RX_DMA_EN)
+    else
+    {
+        QSPI->DMA_CTRL   &= ~QSPI_DMA_CTRL_TX_DMA_EN;
+    }
+}
+
+/**
+  * @brief Configuration of QSPI DMA.
+  * @param TxRx transmit or receive data.
+               QSPI_DMA_CTRL_RX_DMA_EN:receive data
+  * @param RxDataLevel dma receive data level.
+  */
+void QSPI_Rx_DMA_CTRL_Config(uint8_t Cmd, uint8_t RxDataLevel)
+{
+    assert_param(IS_FUNCTIONAL_STATE(Cmd));
+    assert_param(IS_QSPI_DMARDL_CTRL(RxDataLevel));
+    
+    if (Cmd)
     {
         QSPI->DMARDL_CTRL = RxDataLevel;
         QSPI->DMA_CTRL   |= QSPI_DMA_CTRL_RX_DMA_EN;
+    }
+    else
+    {
+        QSPI->DMA_CTRL   &= ~QSPI_DMA_CTRL_RX_DMA_EN;
     }
 }
 /**
@@ -376,18 +350,19 @@ uint16_t QSPI_GetITStatus(uint16_t FLAG)
  */
 void QSPI_ClearITFLAG(uint16_t FLAG)
 {
-    volatile uint16_t tmp = 0;
-
     if (FLAG == QSPI_ISTS_TXFOIS)
-        tmp = QSPI->TXFOI_CLR;
-    if (FLAG == QSPI_ISTS_RXFOIS)
-        tmp = QSPI->RXFOI_CLR;
-    if (FLAG == QSPI_ISTS_RXFUIS)
-        tmp = QSPI->RXFUI_CLR;
-    if (FLAG == QSPI_ISTS_MMCIS)
-        tmp = QSPI->MMC_CLR;
-    if (FLAG == QSPI_ISTS)
-        tmp = QSPI->ICLR;
+        (void)QSPI->TXFOI_CLR;
+    else if (FLAG == QSPI_ISTS_RXFOIS)
+        (void)QSPI->RXFOI_CLR;
+    else if (FLAG == QSPI_ISTS_RXFUIS)
+        (void)QSPI->RXFUI_CLR;
+    else if (FLAG == QSPI_ISTS_MMCIS)
+        (void)QSPI->MMC_CLR;
+    else if (FLAG == QSPI_ISTS)
+        (void)QSPI->ICLR;
+    else
+    {
+    }
 }
 /**
  * @brief  Clear the flag of related interrupt register.
@@ -395,10 +370,8 @@ void QSPI_ClearITFLAG(uint16_t FLAG)
  */
 void QSPI_XIP_ClearITFLAG(uint16_t FLAG)
 {
-    volatile uint16_t tmp = 0;
-
     if (FLAG == QSPI_XIP_RXFOI_CLR_XRXFOIC)
-        tmp = QSPI->XIP_RXFOI_CLR;
+       (void)QSPI->XIP_RXFOI_CLR;
 }
 /**
  * @brief  Get QSPI status,busy or not.
@@ -450,16 +423,7 @@ bool GetQspiRxDataFullStatus(void)
         return 1;
     return 0;
 }
-/**
- * @brief  Check transmit error or not.
- * @return 1: Transmit error;0: No transmit error.
- */
-bool GetQspiTransmitErrorStatus(void)
-{
-    if ((QSPI->STS & 0x20) == 0x20)
-        return 1;
-    return 0;
-}
+
 /**
  * @brief  Check data conflict error or not.
  * @return 1: Data conflict error;0: No data conflict error.

@@ -477,10 +477,14 @@ typedef struct
 #define ADC_CTRL3_CALALD_MSK    ((uint32_t)0x01L << 3)
 #define ADC_CTRL3_CALDIF_MSK    ((uint32_t)0x01L << 2)
 #define ADC_CTRL3_RES_MSK       ((uint32_t)0x03L << 0)
+
 /**
  * @}
  */
 
+#define ADC_CLOCK_PLL           ((uint32_t)ADC_CTRL3_CKMOD_MSK)
+#define ADC_CLOCK_AHB           ((uint32_t)(~ADC_CTRL3_CKMOD_MSK))
+ 
 /**@addtogroup ADC_sampt3_definition
  * @{
  */

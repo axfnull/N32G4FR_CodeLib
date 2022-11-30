@@ -28,7 +28,7 @@
 /**
  * @file n32g4fr_gpio.h
  * @author Nations
- * @version v1.0.2
+ * @version v1.0.3
  *
  * @copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
  */
@@ -53,9 +53,8 @@ extern "C" {
  * @{
  */
 
-#define IS_GPIO_ALL_PERIPH(PERIPH)                                                                                     \
-    (((PERIPH) == GPIOA) || ((PERIPH) == GPIOB) || ((PERIPH) == GPIOC) || ((PERIPH) == GPIOD) || ((PERIPH) == GPIOE)   \
-     || ((PERIPH) == GPIOF) || ((PERIPH) == GPIOG))
+#define IS_GPIO_ALL_PERIPH(PERIPH)                                                                                  \
+    (((PERIPH) == GPIOA) || ((PERIPH) == GPIOB) || ((PERIPH) == GPIOC) || ((PERIPH) == GPIOD) || ((PERIPH) == GPIOE))
 
 /**
  * @brief  Output Maximum frequency selection
@@ -350,16 +349,13 @@ typedef enum
 #define GPIOC_PORT_SOURCE ((uint8_t)0x02)
 #define GPIOD_PORT_SOURCE ((uint8_t)0x03)
 #define GPIOE_PORT_SOURCE ((uint8_t)0x04)
-#define GPIOF_PORT_SOURCE ((uint8_t)0x05)
-#define GPIOG_PORT_SOURCE ((uint8_t)0x06)
 #define IS_GPIO_EVENTOUT_PORT_SOURCE(PORTSOURCE)                                                                       \
     (((PORTSOURCE) == GPIOA_PORT_SOURCE) || ((PORTSOURCE) == GPIOB_PORT_SOURCE) || ((PORTSOURCE) == GPIOC_PORT_SOURCE) \
      || ((PORTSOURCE) == GPIOD_PORT_SOURCE) || ((PORTSOURCE) == GPIOE_PORT_SOURCE))
 
 #define IS_GPIO_EXTI_PORT_SOURCE(PORTSOURCE)                                                                           \
     (((PORTSOURCE) == GPIOA_PORT_SOURCE) || ((PORTSOURCE) == GPIOB_PORT_SOURCE) || ((PORTSOURCE) == GPIOC_PORT_SOURCE) \
-     || ((PORTSOURCE) == GPIOD_PORT_SOURCE) || ((PORTSOURCE) == GPIOE_PORT_SOURCE)                                     \
-     || ((PORTSOURCE) == GPIOF_PORT_SOURCE) || ((PORTSOURCE) == GPIOG_PORT_SOURCE))
+     || ((PORTSOURCE) == GPIOD_PORT_SOURCE) || ((PORTSOURCE) == GPIOE_PORT_SOURCE))
 
 /**
  * @}

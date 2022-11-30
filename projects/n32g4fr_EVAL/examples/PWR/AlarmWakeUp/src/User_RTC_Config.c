@@ -325,26 +325,40 @@ void RTC_PrescalerConfig(void)
     }
 }
 
-void RTC_CLKSourceConfig(uint8_t ClkSrc, uint8_t FirstLastCfg, uint8_t RstBKP)
+/**
+ * @brief  Configures the RTC Source Clock Type.
+ * @param Clk_Src_Type specifies RTC Source Clock Type.
+ *   This parameter can be on of the following values:
+ *     @arg RTC_CLK_SRC_TYPE_HSE128
+ *     @arg RTC_CLK_SRC_TYPE_LSE
+ *     @arg RTC_CLK_SRC_TYPE_LSI
+ * @param Is_First_Cfg_RCC specifies Is First Config RCC Module.
+ *   This parameter can be on of the following values:
+ *     @arg true
+ *     @arg false
+ * @param Is_Rst_Bkp specifies Whether Reset The Backup Area
+ *   This parameter can be on of the following values:
+ *     @arg true
+ *     @arg false
+ */
+void RTC_CLKSourceConfig(RTC_CLK_SRC_TYPE Clk_Src_Type, bool Is_First_Cfg_RCC, bool Is_Rst_Bkp)
 {
-    assert_param(IS_CLKSRC_VALUE(ClkSrc));
-    assert_param(IS_FLCFG_VALUE(FirstLastCfg));
     /* Enable the PWR clock */
     RCC_EnableAPB1PeriphClk(RCC_APB1_PERIPH_PWR | RCC_APB1_PERIPH_BKP, ENABLE);
     RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_AFIO, ENABLE);
     /* Allow access to RTC */
     PWR_BackupAccessEnable(ENABLE);
     /* Reset Backup */
-    if (RstBKP == 1)
+    if (true == Is_Rst_Bkp)
     {
        BKP_DeInit();
     }
     /* Disable RTC clock */
     RCC_EnableRtcClk(DISABLE);
-    if (ClkSrc == 0x01)
+    if (RTC_CLK_SRC_TYPE_HSE128 == Clk_Src_Type)
     {
        log_info("\r\n RTC_ClkSrc Is Set HSE128! \r\n");
-       if (FirstLastCfg == 0)
+       if (true == Is_First_Cfg_RCC )
        {
           /* Enable HSE */
           RCC_EnableLsi(DISABLE);
@@ -367,10 +381,10 @@ void RTC_CLKSourceConfig(uint8_t ClkSrc, uint8_t FirstLastCfg, uint8_t RstBKP)
        SynchPrediv  = 0x1E8; // 8M/128 = 62.5KHz
        AsynchPrediv = 0x7F;  // value range: 0-7F
     }
-    else if (ClkSrc == 0x02)
+    else if (RTC_CLK_SRC_TYPE_LSE == Clk_Src_Type)
     {
        log_info("\r\n RTC_ClkSrc Is Set LSE! \r\n");
-        if (FirstLastCfg == 0)
+        if (true == Is_First_Cfg_RCC)
         {
            /* Enable the LSE OSC32_IN PC14 */
            RCC_EnableLsi(DISABLE); // LSI is turned off here to ensure that only one clock is turned on
@@ -401,10 +415,10 @@ void RTC_CLKSourceConfig(uint8_t ClkSrc, uint8_t FirstLastCfg, uint8_t RstBKP)
         SynchPrediv  = 0xFF; // 32.768KHz
         AsynchPrediv = 0x7F; // value range: 0-7F
     }
-    else if (ClkSrc == 0x03)
+    else if (RTC_CLK_SRC_TYPE_LSI == Clk_Src_Type)
     {
         log_info("\r\n RTC_ClkSrc Is Set LSI! \r\n");
-        if (FirstLastCfg == 0)
+        if (true == Is_First_Cfg_RCC)
         {
            /* Enable the LSI OSC */
            RCC_EnableLsi(ENABLE);

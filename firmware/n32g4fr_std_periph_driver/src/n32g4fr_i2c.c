@@ -167,7 +167,7 @@
 
 /**
  * @brief  Deinitializes the I2Cx peripheral registers to their default reset values.
- * @param I2Cx where x can be 1 or 2 to select the I2C peripheral.
+ * @param I2Cx where x can be 1,2 ,3 or 4 to select the I2C peripheral.
  */
 void I2C_DeInit(I2C_Module* I2Cx)
 {
@@ -181,13 +181,31 @@ void I2C_DeInit(I2C_Module* I2Cx)
         /* Release I2C1 from reset state */
         RCC_EnableAPB1PeriphReset(RCC_APB1_PERIPH_I2C1, DISABLE);
     }
-    else
+    else if (I2Cx == I2C2)
     {
         /* Enable I2C2 reset state */
         RCC_EnableAPB1PeriphReset(RCC_APB1_PERIPH_I2C2, ENABLE);
         /* Release I2C2 from reset state */
         RCC_EnableAPB1PeriphReset(RCC_APB1_PERIPH_I2C2, DISABLE);
     }
+	else if (I2Cx == I2C3)
+    {
+        /* Enable I2C3 reset state */
+        RCC_EnableAPB2PeriphReset(RCC_APB2_PERIPH_I2C3, ENABLE);
+        /* Release I2C3 from reset state */
+        RCC_EnableAPB2PeriphReset(RCC_APB2_PERIPH_I2C3, DISABLE);
+    }
+	else if (I2Cx == I2C4)
+    {
+        /* Enable I2C4 reset state */
+        RCC_EnableAPB2PeriphReset(RCC_APB2_PERIPH_I2C4, ENABLE);
+        /* Release I2C4 from reset state */
+        RCC_EnableAPB2PeriphReset(RCC_APB2_PERIPH_I2C4, DISABLE);
+    }
+	else
+	{
+		
+	}
 }
 
 /**

@@ -43,7 +43,6 @@ extern "C" {
 
 /*Led1-PE6,Led2-PE7,Led3-PF6,Led4-PF7,Led5-PF8*/
 #define PORTE_GROUP GPIOE
-#define PORTF_GROUP GPIOF
 #define LED1_PORT   PORTE_GROUP
 #define LED2_PORT   PORTE_GROUP
 #define LED3_PORT   PORTF_GROUP

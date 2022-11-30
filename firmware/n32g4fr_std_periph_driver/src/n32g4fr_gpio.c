@@ -28,7 +28,7 @@
 /**
  * @file n32g4fr_gpio.c
  * @author Nations
- * @version v1.0.2
+ * @version v1.0.3
  *
  * @copyright Copyright (c) 2019, Nations Technologies Inc. All rights reserved.
  */
@@ -149,16 +149,6 @@ void GPIO_DeInit(GPIO_Module* GPIOx)
     {
         RCC_EnableAPB2PeriphReset(RCC_APB2_PERIPH_GPIOE, ENABLE);
         RCC_EnableAPB2PeriphReset(RCC_APB2_PERIPH_GPIOE, DISABLE);
-    }
-    else if (GPIOx == GPIOF)
-    {
-        RCC_EnableAPB2PeriphReset(RCC_APB2_PERIPH_GPIOF, ENABLE);
-        RCC_EnableAPB2PeriphReset(RCC_APB2_PERIPH_GPIOF, DISABLE);
-    }
-    else if (GPIOx == GPIOG)
-    {
-        RCC_EnableAPB2PeriphReset(RCC_APB2_PERIPH_GPIOG, ENABLE);
-        RCC_EnableAPB2PeriphReset(RCC_APB2_PERIPH_GPIOG, DISABLE);
     }
     else
     {

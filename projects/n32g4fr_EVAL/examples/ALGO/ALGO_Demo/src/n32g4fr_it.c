@@ -38,7 +38,6 @@
  * @{
  */
 
-extern __IO uint32_t CurrDataCounterEnd;
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Exceptions Handlers                         */

@@ -68,7 +68,7 @@ uint8_t Rx_Buffer[BufferSize];
 
 __IO uint8_t Index                  = 0x0;
 volatile TestStatus TransferStatus1 = FAILED, TransferStatus2 = PASSED;
-__IO uint32_t FlashID = 0;
+__IO unsigned int FlashID = 0;
 
 TestStatus Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferLength);
 void SPI_DMA_PageWrite(uint32_t WriteAddr);
@@ -107,17 +107,7 @@ void LedInit(GPIO_Module* GPIOx, uint16_t Pin)
     {
         RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_GPIOE, ENABLE);
     }
-    else if (GPIOx == GPIOF)
-    {
-        RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_GPIOF, ENABLE);
-    }
-    else
-    {
-        if (GPIOx == GPIOG)
-        {
-            RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_GPIOG, ENABLE);
-        }
-    }
+
 
     /* Configure the GPIO pin */
     if (Pin <= GPIO_PIN_ALL)

@@ -104,17 +104,7 @@ void LedInit(GPIO_Module* GPIOx, uint16_t Pin)
     {
         RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_GPIOE, ENABLE);
     }
-    else if (GPIOx == GPIOF)
-    {
-        RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_GPIOF, ENABLE);
-    }
-    else
-    {
-        if (GPIOx == GPIOG)
-        {
-            RCC_EnableAPB2PeriphClk(RCC_APB2_PERIPH_GPIOG, ENABLE);
-        }
-    }
+
 
     /* Configure the GPIO pin */
     if (Pin <= GPIO_PIN_ALL)

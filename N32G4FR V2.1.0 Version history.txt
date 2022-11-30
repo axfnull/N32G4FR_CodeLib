@@ -1,0 +1,323 @@
+﻿Nationstech.N32G4FR_Library.2.1.0版本：
+1. 新增GCC下载配置文件和启动文件
+2. 修改I2C复位函数，增加I2C3,I2C4复位判断
+3. flash模块 driver文件删除已定义未使用变量
+4. GPIO模块 例程删除已定义未使用变量
+5. USART模块 例程删除已定义未使用变量
+6. ADC 例程优化
+      1）初始化函数增加在时钟配置上1M的初始化配置
+      2）驱动添加对ADC_CTRL3的CKMOD操作
+7. system_init RCC 配置寄存器2，配置寄存器3复位值修改
+8. exit deinit 复位值修改
+9. RCC deinit 配置寄存器3复位值修改、例程优化
+10. 删除GPIOF、GPIOG相关内容
+11. RT-Thread
+     1) 删除并重新添加RT-Thread的middlewares组件文件
+     2) 删除RT-Thread的Demo，重新添加RT-Thread的Demo，并更改启动方式，采用默认的启动方式
+12. 修改RT-Thread n32g4fr_wdog_control函数，不使用宏，定义两个变量存储RELV和PREDIV寄存器的值
+13. QSPI DMA DEMO DMA通道函数修改
+14. 修改USB驱动usb_regs.h文件里的_BlocksOf32宏，wNBlocks << 11改为wNBlocks << 10
+15. NVIC更新IRQ_Mask例程按下按键打印停止，再按下无法继续打印问题
+16. iCache coreMark跑分优化
+17. 修改n32g4fr.h，以及QSPI驱动、demo，删除无效寄存器以及将QSPI_ENH_CTRL0,QSPI_STS中的无效位改为保留位
+18. 修改SPI FLASH中的W25Q128擦除命令宏定义
+19. 修复了QSPI DMA配置一个通道会复位另一个通道的BUG，将DMA配置函数改成两个函数分别配置Tx、Rx
+20. 修改misc.c/h中的IS_SYSTICK_CLK_SOURCE宏定义和void SysTick_CLKSourceConfig(uint32_t SysTick_CLKSource)函数
+21. 修改n32g4fr_adc.c中的uint32_t ADC_GetDualModeConversionDat(ADC_Module* ADCx)函数
+22. RTC模块删除驱动中已定义未使用变量
+23. 删除n32f4fr_it.c中未使用变量
+24. 修改CAN_Tx_Rx Demo Readme里的CAN1引脚描述
+25. 优化Flash_Write_Protection Demo的main()函数
+26. 优化I2C_10bit和I2C_Master_Int Demo
+27. 修改I2C_Slave_Int Demo的main()里的log_info()函数
+28. 优化uSDCard Demo例程，删除未使用变量
+29. 增加USART Demo的Readme注意事项说明
+30. TIM_Basic6的Demo，PCLK1四分频
+31. 增加所有Demo Readme英文版本
+32. 删除DVP Demo
+33. USB demo 关闭ERROR和ESOF中断
+34. 修改RTC_Init(RTC_InitType* RTC_InitStruct)
+35. 优化RtcAutoWakeUp Demo
+36. 修改RT-Thread drv_can.c/h 和can.h的回环模式buge
+37. TIMx_DCTRL后面的寄存器无法应用DMA Burst功能，修改相应代码
+38. 增加I2C MASTER INT demo中的错误中断服务函数
+39.将 SYSCLKConfig_STOP(uint32_t RCC_PLLMULL) 中的FLASH->AC 更换成变量操作
+
+Nationstech.N32G4FR_Library.2.0.0版本：
+版本变更 1.3.0->2.0.0
+1.USART模块
+    USART初始化函数,波特率设置优化
+
+Nationstech.N32G4FR_Library.1.3.0版本：
+1、I2C模块
+    读单字节数据时的接收判断标志修改
+    初始化函数，时钟判断修改
+2、log.c
+    修改fputc函数发送完成判断标志
+
+Nationstech.N32G4FR_Library.1.2.0版本：
+1、 公共文件n32g4fr.h修正了几个宏定义：
+        RCC_CFG_USBPRES_PLLDIV3、RCC_CFG_USBPRES_PLLDIV2、RCC_APB1ENR_OPAMPEN、
+        RCC_CSR_MMURSTF、FLASH_AC_LATENCY
+2、 公共文件log.c、log.h：
+        修改调试UART端口为PA9/PA10
+3、 SPI模块：
+        新增 SPI_RECORDER 例程
+4、 USB模块：
+        新增 Audio_Speaker 例程
+        修改USB例程挂起后进入低功耗模式
+5、 RCC模块，驱动n32g4fr_rcc.c/h中：
+        更新RC_HSE_DISABLE宏定义名称
+        更新RCC_ADC1MCLK_SRC_HSE宏定义的值
+        删除RCC_ConfigEthClk相关定义
+        例程优化
+6、 FLASH模块，驱动n32g4fr_flash/h中：
+        更新FLASH_SetSMPSELStatus函数定义
+        更新FLASH_GetSMPSELStatus函数定义
+7、 ADC模块，驱动n32g4fr_adc.c/h中：
+        修改了ADC_SetDifChsEnable函数名称；
+        修改了ADC 模式寄存器位定义名称；
+        增加对校准功能的函数重入性控制
+        温度测试公式修改
+        例程优化
+8、 RTC模块：
+        优化RTC TimeStamp例程
+        例程优化
+9、SDIO模块，优化例程uSDCard：
+        增加中断回调函数
+        添加宏开关，切换单块读写和多块读写
+10、USART模块：
+        IrDA_Tx&Rx DEMO Receive测例和Transmit测例合并成Transmit_Receive测例
+        IrDA_Tx&Rx DEMO 新增LP_Transmit_Receive测例
+11、I2C模块：
+        优化驱动n32g4fr_i2c.c/h，修改I2C初始化函数
+        优化所有DEMO，修改端口配置及应用流程
+12、DVP模块：
+        完善针对C++的文件头宏定义  #ifdef __cplusplus } #endif
+        例程优化
+13、所有模块增加IAR工程示例
+14、新增RT-Thread系统例程
+15、QSPI模块：
+    优化demo，在全功能板，运行异常问题。
+16、WWDG模块
+        例程优化
+17、PWR模块
+        例程优化
+18、IWDG模块
+        例程优化
+19、bxCAN模块
+        例程优化
+            
+            
+Nationstech.N32G4FR_Library.1.1.1版本：
+1、驱动n32g4fr_tim.c(V1.0.2)，改变TIM_EnableOc1Preload函数为TIM_ConfigOc1Preload；增加TIM_GetAutoReload、TIM_GetCCENStatus函数；
+2、SPI 新增 SPI_FLASH_DMA 例程
+3、USB 新增 HID_Keyboard_TwoWay 与 Printer 例程，修改字符描述符
+
+Nationstech.N32G4FR_Library.1.1.0版本：
+1、示例代码Flash_Write_Protectio工程nmain.c(V1.0.1)，清除标志作了修改；
+2、示例代码Flash_Program工程main.c(V1.0.1)，错误处理作了修改；
+3、示例代码Flash_DMA_Program工程main.c(V1.0.1)，清除标志作了修改；
+4、驱动n32g4fr_flash.c(V1.0.1)，擦写操作增加先清除标志，然后再进行后续操作；
+5、驱动n32g4fr_adc.c(V1.0.1),
+   1)修改了void ADC_InitEx(ADC_Module* ADCx, ADC_InitTypeEx* ADC_InitStructEx)函数；
+   2)增加void ADC_SetDifChsEnable(ADC_Module* ADCx,uint32_t DifChs)；
+   3)修正ADC_CTRL3_CKMOD_AHB 和 ADC_CTRL3_CKMOD_PLL设定的错误
+   4)增加void ADC_ConfigClk(ADC_CTRL3_CKMOD ADC_ClkMode, uint32_t RCC_ADCHCLKPrescaler)函数，用来合并RCC对ADC时钟的配置
+6、驱动n32g4f_qspi.c，删除了data变量
+7、驱动n32g4fr_tim.h(V1.0.1)，TIM_BDTRInitType结构体修改注释；
+8、驱动n32g4fr_rcc.h(V1.0.1)，
+   1)修改了TRNG1MCLK分频的宏定义；
+   2)修改了IS_RCC_TRNG1MCLKPRE(VAL)宏定义；
+9、驱动n32g4fr_gpio.h(V1.0.1),修改了IS_GPIO_REMAP(REMAP)宏定义；
+10、驱动n32g4fr_flash.h(V1.0.1),
+   1)修改了FLASH_ST枚举定义；
+   2)删除FLASH_INT_ECCERRIE宏定义；
+   3)修改IS_FLASH_INT(IT)宏定义；
+   4)删除FLASH_FLAG_ECCERR宏定义；
+   5)修改了IS_FLASH_CLEAR_FLAG宏定义；
+   6)修改IS_FLASH_GET_FLAG(FLAG宏定义；
+   7)增加了FLASH_STS_CLRFLAG宏定义；
+11、驱动n32g4fr_adc.h(V1.0.1)，
+   1)修改了ADC_DIFSEL_CHS_MASK宏定义名称；
+   2)删除ADC_DIFSEL_CHS_0宏定义；
+   3)增加ADC_CTRL3_PDRDY_MSK、ADC_CTRL3_RDY_MSK宏定义；
+   4)修改了ADC_CTRL3_RES枚举定义；
+   5)修改了ADC_InitTypeEx结构体；
+   6)增void ADC_SetDifChs(ADC_Module* ADCx,uint32_t DifChs)声明；
+   7)增void ADC_ConfigClk(ADC_CTRL3_CKMOD ADC_ClkMode, uint32_t RCC_ADCHCLKPrescaler)声明；
+12、驱动n32g4fr.h，
+    1)FLASH_Module结构体将ECCR变量改为RESERVED2；  
+    2)QSPI_Module结构体变量DAT32~DAT35改为RESERVED2~RESERVED5；
+    3)增加Bit definition for ADC_DIFSEL register宏定义；
+    4)增加Bit definition for ADC_CALFACT register宏定义；
+    5)增加Bit definition for ADC_CTRL3 register宏定义；
+    6)增加Bit definition for ADC_SAMPT3 register宏定义；
+    7)删除FLASH_AC_LATENCY_5、FLASH_STS_ECCERR、FLASH_CTRL_ECCERRITE、FLASH_ECCR_ECCLW_MSK、FLASH_ECCR_ECCHW_MSK宏定义；
+    8)修改了HSE_STARTUP_TIMEOUT宏定义值;
+    9)修改了CAN模块寄存器定义结构体;
+    10)ADC_Module结构体去除IPTST变量；
+    11)修改ADC_Module结构体里面的 WDHIGH
+
+
+
+Nationstech. N32G4FR_Library. 2.1.0 version:
+1. Added GCC download configuration file and startup file
+2. Modify I2C reset function, add I2C3,I2C4 reset judgment
+3. Delete defined unused variables from flash module drvier file
+4.GPIO module routine deletes defined unused variables
+5.USART module routine deletes defined unused variables
+6.ADC routine optimization
+          1) The initialization function adds 1M to the initialization configuration on the clock configuration
+          2) Driver added CKMOD operation to ADC_CTRL3
+7. system_ Init RCC configuration register 2, configuration register 3 reset value modification
+8. Exit deinit reset value modification
+9.RCC deinit configuration register 3 reset value modification, Routine optimization
+10. Delete relevant contents of GPIOF and GPIOG
+11.RT-Thread:
+          1) Delete and readd the middlewares component file of RT-Thread
+          2) Delete the demo of RT-Thread, add the demo of RRT-Thread again, and change the startup mode to adopt the default startup mode
+12. Modify RT-Thread n32g4fr_wdog_control function, which does not use macros, defines two variables to store the values of the relv and prediv registers
+13. QSPI DMA demo DMA channel function modification
+14. Modify _BlocksOf32 macro in USB driver usb_regs.h file, wNBlocks << 10 changed to wNBlocks << 10
+15.NVIC update IRQ_Mask routine press the key to stop printing, press again cannot continue printing
+16. ICache coreMark running score optimization
+17. Modify n32g4fr.h, QSPI driver, demo, delete invalid registers and change invalid bits in QSPI_ENH_CTRL0 and QSPI_STS to reserved bits
+18. Modify the macro definition of W25Q128 erase command in SPI FLASH
+19. Fixed the bug that QSPI DMA configuring one channel will reset the other channel, and changed the DMA configuration function to two functions to configure TX and Rx respectively.
+20. Modify the IS_SYSTICK_CLK_SOURCE macro definition and void SysTick_CLKSourceConfig(uint32_t SysTick_CLKSource) function in misc.c/h
+21. Modify the uint32_t ADC_GetDualModeConversionDat(ADC_Module* ADCx) function in n32g4fr_adc.c
+22. RTC module deletes the defined unused variables in the driver
+23. Delete defined unused variable int n32g4fr_it. c
+24. Modify the CAN1 pin description in the CAN_Tx_Rx Demo Readme
+25. Optimize main() function in Flash_Write_Protection Demo
+26. Optimize I2C_10bit and I2C_Master_Int Demo
+27. Modify the log_info() function in main() of I2C_Slave_Int Demo
+28. Optimize the uSDCard Demo routine and delete unused variables
+29. Add readme notes of USART demo
+30. TIM_Basic6 Demo, PCLK1 quadruple frequency
+31. Add all demo readme English versions
+32. Delete DVP Demo
+33. USB demo ERROR and ESOF interrupt closed
+34. Modify the RTC_Init(RTC_InitType* RTC_InitStruct)
+35. Optimize the RtcAutoWakeUp Demo
+36. Modify the Loopback mode buge of drv_can.c/h and can.h in RT-Thread
+37. DMA_CTRL‘s subsequent register cannot apply the DAM Burst function, and modify the corresponding code
+38. Added error interrupt service function in I2C MASTER INT demo.
+39.replace FLASH->AC in SYSCLKConfig_STOP(uint32_t RCC_PLLMULL) with variable operation
+
+Nationstech. N32G4FR_Library. 2.0.0 version:
+Version change 1.3.0- > 2.0.0
+1. The USART module
+          USART initialization function, baud rate settings optimized
+
+Nationstech. N32G4FR_Library. 1.3.0 version:
+1. I2C module
+          Changes to receive judgment flags when reading single-byte data
+          Initialization function, clock judge modification
+2, log.c
+          Modify the fputc function to send the completion flag
+
+Nationstech. N32G4FR_Library. 1.2.0 version:
+1. Public file n32g4fr.h fixes several macro definitions:
+          RCC_CFG_USBPRES_PLLDIV3、RCC_CFG_USBPRES_PLLDIV2、RCC_APB1ENR_OPAMPEN、
+          RCC_CSR_MMURSTF、FLASH_AC_LATENCY
+2. Public file log.c、log.h：
+          Modify the debugging UART port to PA9/PA10
+3. SPI module:
+         Added SPI_RECORDER routine
+4. USB module:
+         Added the Audio_Speaker routine
+         Modify USB routines to enter low power mode after suspending
+5, RCC module, driver n32g4fr_rcc. c/h:
+         Updated the RC_HSE_DISABLE macro definition name
+         Update the value defined by the RCC_ADC1MCLK_SRC_HSE macro
+         Delete the RCC_ConfigEthClk definition
+         Routine optimization
+6, FLASH module, driver n32g4fr_flash.c/h:
+         Update the FLASH_SetSMPSELStatus function definition
+         Update the FLASH_GetSMPSELStatus function definition
+7, ADC module, driver n32g4fr_ADC.c/h:
+         Changed the ADC_SetDifChsEnable function name;
+         Modified ADC mode register bit definition name;
+         Added functional reentrant control for calibration functions
+         Modify the temperature test formula
+         Routine optimization
+8. RTC Module:
+         Optimize the RTC TimeStamp routine
+         Routine optimization
+9. SDIO module, optimization routine uSDCard:
+         Added interrupt callback function
+         Add macro switch to switch single block read/write and multiple block read/write
+10. USART Module:
+         IrDA_Tx&Rx DEMO Receive and Transmit tests are merged into Transmit_Receive tests
+         IrDA_Tx&Rx DEMO adds LP_Transmit_Receive test
+11. I2C module:
+         Optimize driver n32g4fr_i2c.c/h, modify I2C initialization function
+         Optimized all DEMO, modified port configuration and application flow
+12. DVP module:
+         Improve the file header macro definition for c++ ifdef__ cplusplus  #endif
+         Routine optimization
+13. Add IAR project examples for all modules
+14. Added RT-Thread system routine
+15. QSPI Module:
+         Optimized demo, in the full function board, abnormal running problems.
+16. WWDG module
+         Routine optimization
+17. PWR module
+         Routine optimization
+18. IWDG module
+         Routine optimization
+19. BxCAN module
+         Routine optimization
+
+Nationstech. N32G4FR_Library. 1.1.1 version:
+1. Driver n32g4fr_tim.c(V1.0.2), change TIM_EnableOc1Preload function to TIM_ConfigOc1Preload function; Add TIM_GetAutoReload and TIM_GetCCENStatus functions;
+2. SPI added SPI_FLASH_DMA routine
+3. USB added HID_Keyboard_TwoWay and Printer routines, modify the character descriptor
+
+Nationstech. N32G4FR_Library. 1.1.0 version:
+1. Example code Flash_Write_Protectio project nmain.c(V1.0.1), the clear flag has been modified;
+2. Example code Flash_Program project main.c(V1.0.1), error handling has been modified;
+3. Example code Flash_DMA_Program project main.c(V1.0.1), the clear mark has been modified;
+4, Driver n32g4fr_flash.c (V1.0.1), erase operation added first clear flag, and then subsequent operations are carried out;
+5. Driver N32G4FR_ADC.c (V1.0.1):
+         1) Modified void ADC_ Initex (adc_module* adcx, adc_inittypeex* adc_initstructex) function;
+         2) Add void ADC_ SetDifChsEnable(ADC_Module* ADCx,uint32_t DifChs)；
+         3) Modify ADC_ CTRL3_ CKMOD_ AHB and ADC_ CTRL3_ CKMOD_ PLL setting error
+         4) Add void ADC_ConfigClk(ADC_CTRL3_CKMOD ADC_ClkMode, Uint32_t RCC_ADCHCLKPrescaler) function to merge RCC configuration for ADC clock
+6, Driver n32g4fr_qspI.c, delete data variable
+7, Driver n32g4fr_tim.h(V1.0.1), TIM_ Bdtrinittype structure modification notes;
+8. Driver n32g4fr_ rcc. h(V1.0.1)，
+         1) The macro definition of TRNG1MCLK frequency division is modified;
+         2) Modified IS_RCC_TRNG1MCLKPRE(VAL) macro definition;
+9. Driver n32g4fr_ gpio.h (v1.0.1), modified IS_GPIO_REMAP(REMAP) macro definition;
+10. Driver n32g4fr_ flash. h(V1.0.1):
+         1) Modified the FLASH_ST enumeration definition;
+         2) Delete FLASH_INT_ECCERRIE macro definition;
+         3) Modified IS_FLASH_INT(IT) macro definition;
+         4) Delete the FLASH_FLAG_ECCERR macro definition;
+         5) Modified IS_FLASH_CLEAR_FLAG macro definition;
+         6) Modified IS_FLASH_GET_FLAG macro definition;
+         7) Added FLASH_STS_CLRFLAG macro definition;
+11. Driver n32g4fr_ADC. h(V1.0.1):
+         1) Modified ADC_DIFSEL_CHS_MASK macro definition name;
+         2) Delete ADC_DIFSEL_CHS_0 macro definition;
+         3) Add ADC_CTRL3_PDRDY_MSK and ADC_CTRL3_RDY_MSK macro definitions;
+         4) Modified the ADC_CTRL3_RES enumeration definition;
+         5) Modified the ADC_InitTypeEx structure;
+         6) Add void ADC_SetDifChs(ADC_Module* ADCx,uint32_t DifChs) declaration;
+         7) Add void ADC_ConfigClk(ADC_CTRL3_CKMOD ADC_ClkMode, Uint32_t RCC_ADCHCLKPrescaler) declaration;
+12, Driver n32g4fr.h:
+         1) The FLASH_Module structure changes the ECCR variable to RESERVED2;
+         2) Change the QSPI_Module variable DAT32~DAT35 to RESERVED2~RESERVED5;
+         3) Add Bit Definition for ADC_DIFSEL register macro definition;
+         4) Add Bit Definition for ADC_CALFACT Register macro definition;
+         5) Add Bit definition for ADC_CTRL3 register macro definition;
+         6) Add Bit Definition for ADC_SAMPT3 register macro definition;
+         7) Delete FLASH_AC_LATENCY_5, FLASH_STS_ECCERR, FLASH_CTRL_ECCERRITE, FLASH_ECCR_ECCLW_MSK, FLASH_ECCR_ECCHW_MSK macro definitions.
+         8) Modified the HSE_STARTUP_TIMEOUT macro definition value;
+         9) Modified CAN module register definition structure;
+        10) Remove IPTST variable from ADC_Module;
+        11) Modify WDHIGH in ADC_Module structure
+

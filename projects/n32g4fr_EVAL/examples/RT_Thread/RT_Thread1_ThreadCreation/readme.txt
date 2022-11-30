@@ -1,22 +1,40 @@
-1ã€åŠŸèƒ½è¯´æ˜
+1. ¹¦ÄÜËµÃ÷
+    ´ËÀı³ÌÕ¹Ê¾ÔÚ RT_Thread ÏµÍ³´´½¨Ïß³Ì
 
-    1ã€æ­¤ä¾‹ç¨‹å±•ç¤ºåœ¨ RT_Thread ç³»ç»Ÿåˆ›å»ºçº¿ç¨‹
+2. Ê¹ÓÃ»·¾³
+    Ó²¼ş»·¾³£º¹¤³Ì¶ÔÓ¦µÄ¿ª·¢Ó²¼şÆ½Ì¨ 
+    ¿ª·¢°å£º    N32G4FRH_STB V1.1
 
-2ã€ä½¿ç”¨ç¯å¢ƒ
+3. Ê¹ÓÃËµÃ÷
+    ÃèÊöÏà¹ØÄ£¿éÅäÖÃ·½·¨£»ÀıÈç:Ê±ÖÓ£¬I/OµÈ 
+         1. SystemClock£º144MHz
+         2. GPIO£ºPA8 ¿ØÖÆ LED(D1) ÉÁË¸£»PB5 ¿ØÖÆ LED(D3) ÉÁË¸£»
+                        ÈÕÖ¾:   TX--PA9  RX--PA10    ²¨ÌØÂÊ£º115200
 
-    /* ç¡¬ä»¶ç¯å¢ƒï¼šå·¥ç¨‹å¯¹åº”çš„å¼€å‘ç¡¬ä»¶å¹³å° */
-    å¼€å‘æ¿ï¼šN32G457QE_EVB V1.0
+    ÃèÊöDemoµÄ²âÊÔ²½ÖèºÍÏÖÏó 
+         1. ±àÒëºóÏÂÔØ³ÌĞò¸´Î»ÔËĞĞ£»
+         2. ±¾Àı³ÌÔÚmain()ÀïÃæ´´½¨Á½¸öÏß³Ì£¬led0 Ïß³ÌºÍ led1 Ïß³Ì£¬led0 Ïß³ÌÓÃÓÚ¿ØÖÆ D1 1sÉÁË¸£¬led1 Ïß³ÌÓÃÓÚ¿ØÖÆ D3 500msÉÁË¸£¬ÒÔ´ËÑ­»·
 
-3ã€ä½¿ç”¨è¯´æ˜
-    
-    /* æè¿°ç›¸å…³æ¨¡å—é…ç½®æ–¹æ³•ï¼›ä¾‹å¦‚:æ—¶é’Ÿï¼ŒI/Oç­‰ */
-    SystemClockï¼š144MHz
-    GPIOï¼šPB10 æ§åˆ¶ LED(D6) é—ªçƒï¼›PB15 æ§åˆ¶ LED(D17) é—ªçƒï¼›
+4. ×¢ÒâÊÂÏî
+    ÎŞ
 
+1. Function description
+    This example shows how to create a thread in the RT_Thread system
 
-    /* æè¿°Demoçš„æµ‹è¯•æ­¥éª¤å’Œç°è±¡ */
-    1.ç¼–è¯‘åä¸‹è½½ç¨‹åºå¤ä½è¿è¡Œ
-    2.æœ¬ä¾‹ç¨‹åˆ›å»ºä¸‰ä¸ªçº¿ç¨‹ï¼Œå¼€å§‹çº¿ç¨‹ã€LED0 çº¿ç¨‹å’Œ LED1 çº¿ç¨‹ï¼Œå¼€å§‹çº¿ç¨‹ç”¨äºåˆ›å»ºå…¶ä»–çº¿ç¨‹ï¼ˆLED0å’ŒLED1ï¼‰ï¼ŒLED0 çº¿ç¨‹ç”¨äºæ§åˆ¶ D6 1sé—ªçƒï¼ŒLED1 çº¿ç¨‹ç”¨äºæ§åˆ¶ D17 500msé—ªçƒï¼Œä»¥æ­¤å¾ªç¯
+2. Use environment
+    Hardware environment: development hardware platform corresponding to the project 
+    Development board:      N32G4FRH_STB V1.1
 
-4ã€æ³¨æ„äº‹é¡¹
-    æ— 
+3. Instructions for use
+    Describe the configuration method of related modules; for example: clock, I/O, etc. 
+        1. SystemClock: 144MHz
+        2. GPIO: 
+                    PA8 controls the LED (D1) to blink; PB5 controls the LED (D3) to blink;
+                    Log: TX--PA9 RX--PA10 Baud rate: 115200
+
+    Describe the test steps and phenomena of Demo 
+        1. After compiling, download the program to reset and run;
+        2. This routine creates two threads in main(), LED0 thread and LED1 thread. LED0 thread is used to control D1 1s flashing, and LED1 thread is used to control D3 500ms flashing, so as to cycle
+
+4. Matters needing attention
+    None.

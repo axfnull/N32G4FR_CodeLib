@@ -112,7 +112,8 @@ ErrorStatus RTC_DeInit(void)
     __IO uint32_t wutcounter = 0x00;
     uint32_t wutwfstatus     = 0x00;
     ErrorStatus status       = ERROR;
-
+    uint32_t i =0;
+	
     /* Disable the write protection for RTC registers */
     RTC->WRP = 0xCA;
     RTC->WRP = 0x53;
@@ -176,7 +177,8 @@ ErrorStatus RTC_DeInit(void)
 
     /* Enable the write protection for RTC registers */
     RTC->WRP = 0xFF;
-
+    /* Delay for the RTC prescale effect */
+    for(i=0;i<0x2FF;i++);
     return status;
 }
 
@@ -194,7 +196,7 @@ ErrorStatus RTC_DeInit(void)
 ErrorStatus RTC_Init(RTC_InitType* RTC_InitStruct)
 {
     ErrorStatus status = ERROR;
-
+    uint32_t i =0;
     /* Check the parameters */
     assert_param(IS_RTC_HOUR_FORMAT(RTC_InitStruct->RTC_HourFormat));
     assert_param(IS_RTC_PREDIV_ASYNCH(RTC_InitStruct->RTC_AsynchPrediv));
@@ -227,7 +229,8 @@ ErrorStatus RTC_Init(RTC_InitType* RTC_InitStruct)
     }
     /* Enable the write protection for RTC registers */
     RTC->WRP = 0xFF;
-
+    /* Delay for the RTC prescale effect */
+    for(i=0;i<0x2FF;i++);
     return status;
 }
 
@@ -1340,7 +1343,6 @@ uint32_t RTC_GetStoreOperation(void)
  */
 void RTC_ConfigOutput(uint32_t RTC_Output, uint32_t RTC_OutputPolarity)
 {
-    __IO uint32_t temp = 0;
     /* Check the parameters */
     assert_param(IS_RTC_OUTPUT_MODE(RTC_Output));
     assert_param(IS_RTC_OUTPUT_POL(RTC_OutputPolarity));

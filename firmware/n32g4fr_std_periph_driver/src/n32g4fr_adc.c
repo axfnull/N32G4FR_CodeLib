@@ -690,7 +690,7 @@ uint32_t ADC_GetDualModeConversionDat(ADC_Module* ADCx)
     /* Check the parameters */
     assert_param(IsAdcModule(ADCx));
     /* Return the dual mode conversion value */
-    if(ADCx==ADC1 | ADCx==ADC2)
+    if((ADCx==ADC1) | (ADCx==ADC2))
         return (uint32_t)ADC1->DAT;
     else
         return (uint32_t)ADC1->DAT;
@@ -1397,6 +1397,24 @@ void ADC_SetConvResultBitNum(ADC_Module* ADCx, uint32_t ResultBitNum)
 }
 
 /**
+ * @brief  Set Adc Clock bits for AHB .
+ * @param ADCx where x can be 1, 2, 3 or 4 to select the ADC peripheral.
+ */
+void ADC_AHB_Clock_Mode_Config(ADC_Module* ADCx)
+{
+    ADCx->CTRL3 &= ADC_CLOCK_AHB;  
+}
+
+/**
+ * @brief  Set Adc Clock bits for PLL .
+ * @param ADCx where x can be 1, 2, 3 or 4 to select the ADC peripheral.
+ */
+void ADC_PLL_Clock_Mode_Config(ADC_Module* ADCx)
+{   
+    ADCx->CTRL3 |= ADC_CLOCK_PLL;  
+}
+
+/**
  * @brief  Configures the ADCHCLK prescaler.
  * @param RCC_ADCHCLKPrescaler specifies the ADCHCLK prescaler.
  *   This parameter can be on of the following values:
@@ -1430,10 +1448,14 @@ void ADC_ConfigClk(ADC_CTRL3_CKMOD ADC_ClkMode, uint32_t RCC_ADCHCLKPrescaler)
 {
     if(ADC_ClkMode==ADC_CTRL3_CKMOD_AHB){
             RCC_ConfigAdcPllClk(RCC_ADCPLLCLK_DIV1, DISABLE);
-            RCC_ConfigAdcHclk(RCC_ADCHCLKPrescaler);    
+            RCC_ConfigAdcHclk(RCC_ADCHCLKPrescaler);
+            ADC_AHB_Clock_Mode_Config(ADC1);
+            ADC_AHB_Clock_Mode_Config(ADC2);
         }else{
             RCC_ConfigAdcPllClk(RCC_ADCHCLKPrescaler, ENABLE);
-            RCC_ConfigAdcHclk(RCC_ADCHCLK_DIV1);    
+            RCC_ConfigAdcHclk(RCC_ADCHCLK_DIV1);
+            ADC_PLL_Clock_Mode_Config(ADC1);
+            ADC_PLL_Clock_Mode_Config(ADC2);
         }
 }
 /**

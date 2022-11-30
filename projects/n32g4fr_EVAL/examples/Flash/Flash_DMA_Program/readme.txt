@@ -7,7 +7,7 @@
 2、使用环境
 
     /* 硬件环境：工程对应的开发硬件平台 */
-        开发板：N32G45XM-STBV1.1
+        开发板：N32G4XM-STBV1.1
         
 
 3、使用说明
@@ -23,3 +23,25 @@
 
 
 4、注意事项
+
+
+1. Function description
+	/* A brief description of the engineering function */
+	This routine configures and demonstrates the use of DMA to write SRAM data to FLASH
+
+2. Use environment
+	/* Hardware environment: the corresponding development hardware platform */
+	Development board: N32G4XM-STBV1.1
+        
+3. Instructions for use
+    
+	/* Describe the related module configuration method; For example: clock, I/O, etc. */
+	SystemClock: 144 MHZ
+	USART: TX-PA9, RX-PA10, baud rate 115200
+	DMA: Data transfer from SRAM to FLASH
+
+	/* Describes the test steps and symptoms of Demo */
+	1. Reset and run the downloaded program after compilation;
+	2. Check the serial port printed information and compare the SRAM and FLASH array data after transmission. If the printed information is identical, the test is passed and the program runs normally.
+
+4. Matters needing attention

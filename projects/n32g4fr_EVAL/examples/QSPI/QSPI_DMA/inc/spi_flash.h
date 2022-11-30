@@ -1,4 +1,4 @@
-/*****************************************************************************
+ï»¿/*****************************************************************************
  * Copyright (c) 2019, Nations Technologies Inc.
  *
  * All rights reserved.
@@ -37,7 +37,7 @@
 
 #define TEST_ADDR                       0x000000
 
-/** ×´Ì¬¼Ä´æÆ÷ */
+/** çŠ¶æ€å¯„å­˜å™¨ */
 #define W25X_WriteEnable        0x06 
 #define W25X_WriteDisable       0x04 
 #define W25X_ReadStatusReg1     0x05 
@@ -47,25 +47,25 @@
 #define W25X_WriteStatusReg2    0x31 
 #define W25X_WriteStatusReg3    0x11 
 
-/** ¶ÁÃüÁî */
+/** è¯»å‘½ä»¤ */
 #define W25X_ReadData           0x03    //read
 #define W25X_FastReadData       0x0B    //fast read
 #define W25X_FastReadDual       0x3B    //Dual read
 #define W25X_ReadQuadOutput     0x6B    //Quad read
 
-/** ²Á³ıÃüÁî */
+/** æ“¦é™¤å‘½ä»¤ */
 #define W25X_PageErase          0x81    //256 Byte
 #define W25X_SectorErase        0x20    //4K Byte
 //#define W25X_BlockErase       0x52    //32K Byte
 #define W25X_BlockErase         0xD8    //64K Byte
 #define W25X_ChipErase          0xC7    //0x60 Whole 
 
-/** Ğ´ÃüÁî */
+/** å†™å‘½ä»¤ */
 #define W25X_PageProgram        0x02    //page program
 #define W25X_DualPageProgram    0xA2    //Dual page program
 #define W25X_QuadPageProgram    0x32    //Duad page program
 
-/** ÆäËû */
+/** å…¶ä»– */
 #define W25X_PowerDown          0xB9 
 #define W25X_ReleasePowerDown   0xAB 
 #define W25X_DeviceID           0xAB    
